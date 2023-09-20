@@ -1,10 +1,11 @@
+
 from django.shortcuts import render, get_object_or_404
 import json
 from django.core.serializers.json import DjangoJSONEncoder
 
 from django.http import HttpResponse
 from django.template.response import TemplateResponse
-from django.views.generic.detail import DetailView
+from django.views.generic import DetailView, ListView,TemplateView
 from blog.models import Post
 
 from django.views.generic.edit import CreateView
@@ -94,3 +95,12 @@ def get_post(request, post_id):
 )
     response['Access-Control-Allow-Origin'] = '*' 
     return response
+
+
+class PostListView(ListView):
+    model = Post
+    template_name = 'post/post_list.html'
+    context_object_name = 'posts'
+
+class SobreTemplateView(TemplateView):
+    template_name = 'post/sobre.html'
