@@ -5,3 +5,9 @@ from django.db import models
 class Post(models.Model):
     body_text = models.TextField('Texto Principal')
     pub_date = models.DateTimeField('Data Publicação', auto_now=True)
+    categoria = models.CharField('Categoria', max_length=15, choices=[('noticias', 'Notícias'),('como_fazer', 'Como Fazer'),('review', 'Review'),
+    ],
+    default=None,
+    null=True
+)
+

@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.template.response import TemplateResponse
 from django.views.generic import DetailView, ListView,TemplateView
 from blog.models import Post
+from blog.forms import PostModelForm
 
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
@@ -46,6 +47,7 @@ class PostCreateView(CreateView):
     template_name = 'post/post_form.html'
     fields = ('body_text', )
     success_url = reverse_lazy('posts_list')
+    form_class = PostModelForm
 
 def get_all_posts(request):
     posts = list(Post.objects.values('pk', 'body_text', 'pub_date'))
