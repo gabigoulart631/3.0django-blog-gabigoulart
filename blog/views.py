@@ -16,6 +16,9 @@ from django.views.decorators.csrf import csrf_exempt
 
 from django.contrib import messages
 
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 @csrf_exempt
 def create_post(request):
     if request.method == 'POST':
@@ -44,7 +47,7 @@ def create_post(request):
         response['Access-Control-Allow-Origin'] = '*'
         return response
 
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     template_name = 'post/post_form.html'
    # fields = ('body_text', )
@@ -71,6 +74,7 @@ def post_show(request, post_id):
     return render(request, 'post/detail.html', {'post': post})
 
 # Create your views here.
+@login_required
 def index(request):
     return render(request, 'index.html', {'titulo': 'Últimos Artigos'})
 
